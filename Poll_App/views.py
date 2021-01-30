@@ -5,7 +5,8 @@ from .models import Poll
 
 
 def home(request):
-    return render(request, 'poll/home.html', context={})
+    polls = Poll.objects.all()
+    return render(request, 'poll/home.html', context={'polls': polls})
 
 
 def create(request):
@@ -21,7 +22,8 @@ def create(request):
 
 
 def vote(request, poll_id):
-    return render(request, 'poll/vote.html', context={})
+    poll = Poll.objects.get(pk=poll_id)
+    return render(request, 'poll/vote.html', context={'poll': poll})
 
 
 def results(request, poll_id):

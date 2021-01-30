@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import CreatePollForm
 from .models import Poll
+from django.http import HttpResponse
 # Create your views here.
 
 
@@ -23,6 +24,19 @@ def create(request):
 
 def vote(request, poll_id):
     poll = Poll.objects.get(pk=poll_id)
+    if request.method == 'POST':
+        # print(request.POST['poll'])
+        selected_option = request.POST['poll']
+        if selected_option == 'option1':
+            poll.option_one_count += 1
+        elif selected_option == 'option2':
+            poll.option_two_count += 1
+        elif selected_option == 'option3':
+            poll.option_two_count += 1
+        else:
+            return HttpResponse(404, 'Invalid Form')
+        poll.save()
+        return redirect('results', poll.id)
     return render(request, 'poll/vote.html', context={'poll': poll})
 
 

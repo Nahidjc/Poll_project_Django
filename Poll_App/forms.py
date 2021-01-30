@@ -1,8 +1,9 @@
 from django.forms import ModelForm
 
-from models import Poll
+from .models import Poll
 
 
 class CreatePollForm(ModelForm):
     class Meta:
-        fields = ['question', 'option_one', 'options_two', 'options_three']
+        model = Poll
+        fields = ['question', 'option_one', 'option_two', 'option_three']

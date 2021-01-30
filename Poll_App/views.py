@@ -1,5 +1,6 @@
 from django.shortcuts import render
-
+from .forms import CreatePollForm
+from .models import Poll
 # Create your views here.
 
 
@@ -8,7 +9,8 @@ def home(request):
 
 
 def create(request):
-    return render(request, 'poll/create.html', context={})
+    form = CreatePollForm()
+    return render(request, 'poll/create.html', context={'form': form})
 
 
 def vote(request, poll_id):
